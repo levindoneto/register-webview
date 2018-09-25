@@ -1,3 +1,3 @@
-# SigupLoginOtoneuro
+# Otoneuro - Registration - Login
 
-Page for log-in and sign-up for the Otoneuro Messenger Bot.
+Used on the Otoneuro Messenger Bot
