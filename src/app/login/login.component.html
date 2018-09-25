@@ -9,12 +9,12 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="password">Senha</label>
+        <label for="cpf">Senha</label>
         <input
-            type="password" formControlName="password"
-            class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Senha é obrigatória</div>
+            type="cpf" formControlName="cpf"
+            class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }" />
+        <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
+            <div *ngIf="f.cpf.errors.required">Senha é obrigatória</div>
         </div>
     </div>
     <div class="form-group">

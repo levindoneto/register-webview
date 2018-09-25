@@ -19,7 +19,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
-                    return user.email === request.body.email && user.password === request.body.password;
+                    return user.email === request.body.email && user.cpf === request.body.cpf;
                 });
 
                 if (filteredUsers.length) {
@@ -36,7 +36,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return of(new HttpResponse({ status: 200, body: body }));
                 } else {
                     // else return 400 bad request
-                    return throwError({ error: { message: 'email or password is incorrect' } });
+                    return throwError({ error: { message: 'email or cpf is incorrect' } });
                 }
             }
 
