@@ -2,16 +2,21 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from '../_models';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
     constructor(private http: HttpClient) { }
     
+    // Register user in the otoneuro's contacts
     register(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/register`, user);
+        return this.http.post(`${environment.apiUrl}/users`,  JSON.stringify(user))
+        .pipe(map((response: any) => response.json()));
     }
-
+    
+    // Modify user (by email) in the otoneuro's contacts
     update(user: User) {
-        return this.http.put(`${environment.apiUrl}/users/` + user.email, user);
+        return this.http.put(`${environment.apiUrl}/users/` + user.email, user)
+        .pipe(map((response: any) => response.json()));;
     }
 }
