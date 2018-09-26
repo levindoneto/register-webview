@@ -15,6 +15,6 @@ export class UserService {
     
     // Modify user (by email) in the otoneuro's contacts
     update(user: User) {
-        return this.http.put(`${environment.apiUrl}/users/` + user.email, user);
+        return this.http.put(`${environment.apiUrl}/users/` + user.email, JSON.stringify(user));
     }
 }
