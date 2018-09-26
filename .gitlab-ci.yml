@@ -1,0 +1,90 @@
+image: node:8.11.3-alpine
+
+variables:
+ SERVICE_NAME: 'otoneuro-registration'
+ DEPLOY_PATH: '/home/weenvoyer/services/$SERVICE_NAME'
+ DIST_FILES_PATH: 'dist/otoneuro-registration'
+ APP_PORT: '8097'
+
+before_script:
+ - apk update
+ - apk add -y --no-cache --no-install-recommends bash git openssh-client zip
+ - npm install -g @angular/cli@6.0.8
+ - eval $(ssh-agent -s)
+ - echo "$SSH_PRIVATE_KEY" | ssh-add - > /dev/null
+ - mkdir -p ~/.ssh
+ - chmod 700 ~/.ssh
+
+stages:
+ - build_and_test
+ - deploy_homolog
+ - build_prod_artifact
+ - deploy_prod
+
+build_and_test:
+ stage: build_and_test
+ artifacts:
+  untracked: true
+ script:
+  - npm i
+  - ng build alert
+  - ng build
+ only:
+  - homolog
+
+deploy_homolog:
+ variables:
+  DEPLOY_HOST: 'weenvoyer@201.21.196.104'
+  DIST_FILE: '$SERVICE_NAME-distribution.zip'
+  DOCKER_IMAGE_NAME: '$SERVICE_NAME/angular'
+ stage: deploy_homolog
+ dependencies:
+  - build_and_test
+ script:
+  - ssh -o StrictHostKeyChecking=no $DEPLOY_HOST 'exit'
+  - ssh $DEPLOY_HOST "rm -rf $DEPLOY_PATH/*"
+  - ssh $DEPLOY_HOST "mkdir -p $DEPLOY_PATH/"
+  - zip -r $DIST_FILE Dockerfile $DIST_FILES_PATH
+  - scp $DIST_FILE $DEPLOY_HOST:$DEPLOY_PATH/
+  - ssh $DEPLOY_HOST "unzip $DEPLOY_PATH/$DIST_FILE -d $DEPLOY_PATH/"
+  - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
+  - ssh $DEPLOY_HOST "docker system prune -f"
+  - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker build -f Dockerfile -t $DOCKER_IMAGE_NAME ."
+  - ssh $DEPLOY_HOST "docker stop $SERVICE_NAME || true && docker rm $SERVICE_NAME || true && docker run --name $SERVICE_NAME -d -p $APP_PORT:80 --restart always $DOCKER_IMAGE_NAME"
+  - echo "Deploy homolog finished"
+ only:
+  - homolog
+
+build_prod_artifact:
+  stage: build_prod_artifact
+  artifacts:
+    untracked: true
+  script:
+  - npm i
+  - ng build alert --prod
+  - ng build --prod
+
+deploy_prod:
+  variables:
+    DEPLOY_HOST: 'root@192.241.163.194'
+    DEPLOY_PATH: '/root/services/$SERVICE_NAME'
+    DIST_FILE: '$SERVICE_NAME-distribution.zip'
+    DOCKER_IMAGE_NAME: '$SERVICE_NAME/angular'
+  stage: deploy_prod
+  when: manual
+  dependencies:
+  - build_prod_artifact
+  script:
+  - ssh -o StrictHostKeyChecking=no $DEPLOY_HOST 'exit'
+  - ssh $DEPLOY_HOST "rm -rf $DEPLOY_PATH/*"
+  - ssh $DEPLOY_HOST "mkdir -p $DEPLOY_PATH/"
+  - zip -r $DIST_FILE Dockerfile $DIST_FILES_PATH
+  - scp $DIST_FILE $DEPLOY_HOST:$DEPLOY_PATH/
+  - ssh $DEPLOY_HOST "unzip $DEPLOY_PATH/$DIST_FILE -d $DEPLOY_PATH/"
+  - ssh $DEPLOY_HOST "rm $DEPLOY_PATH/$DIST_FILE"
+  - ssh $DEPLOY_HOST "docker system prune -f"
+  - ssh $DEPLOY_HOST "cd $DEPLOY_PATH/ && docker build -f Dockerfile -t $DOCKER_IMAGE_NAME ."
+  - ssh $DEPLOY_HOST "docker stop $SERVICE_NAME || true && docker rm $SERVICE_NAME || true && docker run --name $SERVICE_NAME -d -p $APP_PORT:80 --restart always $DOCKER_IMAGE_NAME"
+  - echo "Deploy prod finished"
+  only:
+  - master
