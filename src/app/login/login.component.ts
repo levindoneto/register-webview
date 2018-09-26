@@ -25,10 +25,10 @@ export class LoginComponent implements OnInit {
             cpf: ['', Validators.required]
         });
 
-        // reset login status
+        // Reset login status
         this.authenticationService.logout();
 
-        // get return url from route parameters or default to '/'
+        // Get the default to '/' or return url from route parameters
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
