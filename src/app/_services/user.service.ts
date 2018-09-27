@@ -14,6 +14,7 @@ export class UserService {
         user.customerId = environment.customerId;
         return this.http.post(`${environment.apiUrl}`, JSON.stringify(user), {
           headers: {
+            'Content-type' : 'application/json',
             'Token' : environment.token
           }
         });
