@@ -26,8 +26,8 @@ build_and_test:
  artifacts:
   untracked: true
  script:
-  - npm i
-  - ng build
+  - npm install
+  - ng serve
  only:
   - homolog
 
@@ -59,8 +59,8 @@ build_prod_artifact:
   artifacts:
     untracked: true
   script:
-  - npm i
-  - ng build --prod
+  - npm install
+  - ng serve --prod
 
 deploy_prod:
   variables:
