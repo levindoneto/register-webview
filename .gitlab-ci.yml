@@ -27,7 +27,6 @@ build_and_test:
   untracked: true
  script:
   - npm i
-  - ng build alert
   - ng build
  only:
   - homolog
@@ -61,7 +60,6 @@ build_prod_artifact:
     untracked: true
   script:
   - npm i
-  - ng build alert --prod
   - ng build --prod
 
 deploy_prod:
