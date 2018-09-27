@@ -10,6 +10,7 @@ export class UserService {
 
     // Register user in the otoneuro's contacts
     register(user: User) {
+        console.log('user: ', user);
         user.customerId = environment.customerId;
         return this.http.post(`${environment.apiUrl}`, JSON.stringify(user), {
           headers: {

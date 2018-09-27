@@ -2,28 +2,34 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="name">Nome</label>
-        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <input type="text" formControlName="name" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
             <div *ngIf="f.name.errors.required">Nome é obrigatório</div>
         </div>
     </div>
     <div class="form-group">
         <label for="email">E-mail</label>
-        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <input type="text" formControlName="email" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">E-mail é obrigatório</div>
         </div>
     </div>
     <div class="form-group">
         <label for="cpf">CPF</label>
-        <input type="text" formControlName="cpf" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }" />
+        <input type="text" formControlName="cpf" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }"
+               mask="000.000.000-00" [showMaskTyped] = "true"/>
         <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
             <div *ngIf="f.cpf.errors.required">CPF é obrigatório</div>
         </div>
     </div>
     <div class="form-group">
         <label for="cellphone">Celular</label>
-        <input type="cellphone" formControlName="cellphone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cellphone.errors }" />
+        <input type="cellphone" formControlName="cellphone" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.cellphone.errors }"
+               mask="(00) 00000-0000" prefix="+55 " [showMaskTyped] = "true"/>
         <div *ngIf="submitted && f.cellphone.errors" class="invalid-feedback">
             <div *ngIf="f.cellphone.errors.required">Celular é obrigatório</div>
         </div>

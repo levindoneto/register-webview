@@ -8,13 +8,15 @@ import { routing } from './app.routing';
 import { AlertComponent } from './_directives';
 import { AlertService, UserService } from './_services';
 import { RegisterComponent } from './register';
+import {NgxMaskModule} from 'ngx-mask'
 
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        routing
+        routing,
+        NgxMaskModule.forRoot()
     ],
     declarations: [
         AppComponent,
