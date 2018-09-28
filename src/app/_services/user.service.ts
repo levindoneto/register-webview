@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from '../_models';
@@ -10,7 +10,7 @@ export class UserService {
 
     // Register user in the otoneuro's contacts
     register(user: User) {
-        console.log('user: ', user);
+        user.cellphone = "55".concat(user.cellphone); // Add the Brazilian phone code as the default one
         user.customerId = environment.customerId;
         return this.http.post(`${environment.apiUrl}`, JSON.stringify(user), {
           headers: {
