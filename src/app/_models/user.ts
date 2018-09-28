@@ -1,8 +1,8 @@
-﻿export class User {
+export class User {
     name: string;
     email: string;
     cpf: number;
-    cellphone: number;
+    cellphone: string;
     facebookId: string;
     customerId: number;
 }
