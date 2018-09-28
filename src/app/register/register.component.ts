@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
             .subscribe(
                 data => {
                     this.alertService.success('Cadastro feito com sucesso', true);
-                    this.router.navigate(['https://m.me/clinicaotoneuro']); // Go back to the otoneuro bot
+                    this.router.navigate(['/register']); // Go back to the otoneuro bot
                 },
                 error => {
                     this.alertService.error(error);
