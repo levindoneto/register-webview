@@ -1,22 +1,31 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService, UserService } from '../_services';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../_models';
 
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    id: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private userService: UserService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
+        this.route.queryParams
+            .subscribe(params => {
+                this.id = params.id;
+            });
+        
         this.registerForm = this.formBuilder.group({
             name: ['', Validators.required],
             email: ['', Validators.required],
@@ -37,12 +46,16 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.userService.register(this.registerForm.value)
+        let user: User = this.registerForm.value;
+        user.cellphone = "55".concat(user.cellphone); // Add the Brazilian phone code as the default one
+        user.facebookId = this.id; // Get the facebook id from URL
+
+        this.userService.register(user)
             .pipe(first())
             .subscribe(
                 data => {
                     this.alertService.success('Cadastro feito com sucesso', true);
-                    this.router.navigate(['/register']); // Go back to the bot
+                    this.router.navigate(['https://m.me/clinicaotoneuro']); // Go back to the otoneurp bot
                 },
                 error => {
                     this.alertService.error(error);
