@@ -2,7 +2,7 @@ export class User {
     name: string;
     email: string;
     cpf: number;
-    cellphone: string;
+    numero: string;
     facebookId: string;
     customerId: number;
 }

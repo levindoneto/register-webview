@@ -27,12 +27,12 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="cellphone">Celular</label>
-        <input type="cellphone" formControlName="cellphone" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.cellphone.errors }"
+        <label for="numero">Celular</label>
+        <input type="numero" formControlName="numero" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.numero.errors }"
                mask="(00) 00000-0000" prefix="+55 " [showMaskTyped] = "true"/>
-        <div *ngIf="submitted && f.cellphone.errors" class="invalid-feedback">
-            <div *ngIf="f.cellphone.errors.required">Celular é obrigatório</div>
+        <div *ngIf="submitted && f.numero.errors" class="invalid-feedback">
+            <div *ngIf="f.numero.errors.required">Celular é obrigatório</div>
         </div>
     </div>
     <div class="form-group">
