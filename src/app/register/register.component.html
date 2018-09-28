@@ -1,8 +1,7 @@
-﻿<h2>Cadastro</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+﻿<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="name">Nome</label>
-        <input type="text" formControlName="name" class="form-control"
+        <input type="text" formControlName="name" class="form-control" placeholder="Digite seu nome"
                [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
             <div *ngIf="f.name.errors.required">Nome é obrigatório</div>
@@ -10,7 +9,7 @@
     </div>
     <div class="form-group">
         <label for="email">E-mail</label>
-        <input type="email" formControlName="email" class="form-control"
+        <input type="email" formControlName="email" class="form-control" placeholder="Digite seu E-mail"
                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
                ngModel [email]="true"/>
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -19,7 +18,7 @@
     </div>
     <div class="form-group">
         <label for="cpf">CPF</label>
-        <input type="text" formControlName="cpf" class="form-control"
+        <input type="text" formControlName="cpf" class="form-control" placeholder="000.000.000 - 00"
                [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }"
                mask="000.000.000-00" [showMaskTyped] = "true"/>
         <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
@@ -35,7 +34,7 @@
             <div *ngIf="f.cellphone.errors.required">Celular é obrigatório</div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="btn-register">
         <button class="btn btn-primary">Cadastrar</button>
     </div>
 </form>

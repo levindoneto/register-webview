@@ -8,7 +8,7 @@ import { routing } from './app.routing';
 import { AlertComponent } from './_directives';
 import { AlertService, UserService } from './_services';
 import { RegisterComponent } from './register';
-import {NgxMaskModule} from 'ngx-mask'
+import {NgxMaskModule} from 'ngx-mask';
 
 @NgModule({
     imports: [

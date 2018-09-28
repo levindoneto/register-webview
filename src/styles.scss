@@ -1,0 +1,53 @@
+/* Fill this with the UX stuff if needed */
+
+.jumbotron{
+  font-family: 'Alegreya', serif;
+  background-color: #fff;
+
+  .form-group{
+    text-align: left;
+  }
+  .top-register{
+padding: 10px
+  }
+  .btn-register{
+    text-align: center;
+
+    .btn-primary{
+      background-color: #620205;
+      border-color: #620205;
+
+     &.actived{
+        background-color: #c20a10 !important;
+
+      }
+    }
+  }
+
+  $logo-size: 80px;
+
+    .title{
+      display: inline-block;
+      text-align: center;
+
+      margin-left: 35px;
+      width: calc(100% - #{$logo-size} - 40px);
+
+      line-height: 30px;
+      color: #620205;
+    }
+
+    .logo{
+      display: inline-block;
+      text-align: center;
+      width: $logo-size;
+      background-color: #fff;
+
+
+      .logoImg{
+        text-align: left;
+        width: 80px;
+      }
+    }
+  }
+
