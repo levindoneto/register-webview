@@ -11,7 +11,7 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
-    id: string;
+    id: string; // Facebook id
 
     constructor(
         private formBuilder: FormBuilder,
@@ -24,6 +24,8 @@ export class RegisterComponent implements OnInit {
         this.route.queryParams
             .subscribe(params => {
                 this.id = params.id;
+                console.log("Id facebook: ", id);
+                console.log("Id facebook: ", params.id);
             });
         
         this.registerForm = this.formBuilder.group({
@@ -48,6 +50,7 @@ export class RegisterComponent implements OnInit {
         this.loading = true;
         let user: User = this.registerForm.value;
         user.phoneNumber = "55".concat(user.phoneNumber); // Add the Brazilian phone code as the default one
+        console.log("This id on submit ", this.id);
         user.facebookId = this.id; // Get the facebook id from URL
         console.log('user: ', user);
         this.userService.register(user)
