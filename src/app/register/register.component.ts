@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
             name: ['', Validators.required],
             email: ['', Validators.required],
             cpf: ['', Validators.required],
-            cellphone: ['', Validators.required]
+            phoneNumber: ['', Validators.required]
         });
     }
 
@@ -47,15 +47,15 @@ export class RegisterComponent implements OnInit {
 
         this.loading = true;
         let user: User = this.registerForm.value;
-        user.cellphone = "55".concat(user.cellphone); // Add the Brazilian phone code as the default one
+        user.phoneNumber = "55".concat(user.phoneNumber); // Add the Brazilian phone code as the default one
         user.facebookId = this.id; // Get the facebook id from URL
-
+        console.log('user: ', user);
         this.userService.register(user)
             .pipe(first())
             .subscribe(
                 data => {
                     this.alertService.success('Cadastro feito com sucesso', true);
-                    this.router.navigate(['https://m.me/clinicaotoneuro']); // Go back to the otoneurp bot
+                    this.router.navigate(['/register']); // Go back to the otoneuro bot
                 },
                 error => {
                     this.alertService.error(error);
