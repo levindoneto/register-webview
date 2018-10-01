@@ -6,4 +6,4 @@ const appRoutes: Routes = [
     { path: '**', redirectTo: '/register' } // Redirect to home
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+export const routing = RouterModule.forRoot(appRoutes, {useHash: true});

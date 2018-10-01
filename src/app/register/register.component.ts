@@ -61,7 +61,8 @@ export class RegisterComponent implements OnInit {
                     this.router.navigate(['/register']); // Go back to the otoneuro bot
                 },
                 error => {
-                    this.alertService.error(error);
+                    //console.log('error: ', error); // Treat error
+                    this.alertService.error('Erro ao cadastrar usuário');
                     this.loading = false;
                 });
     }
